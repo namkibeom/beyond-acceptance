@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A controlled study of target support, reward optimization, and frozen representation probes in natural language inference adaptation.">
+  <meta name="color-scheme" content="light">
+  <title>Beyond Acceptance — Research Project</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="#main">Beyond Acceptance<span class="mark" aria-hidden="true">/</span></a>
+    <nav aria-label="Sections"><a href="#formulation">Formulation</a><a href="#evidence">Evidence</a><a href="#protocol">Protocol</a></nav>
+  </header>
+  <main id="main" class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div class="hero-copy">
+        <p class="eyebrow">Optimization study · Fixed verifier feedback</p>
+        <h1 id="title">Beyond Acceptance<span>Disentangling Data Support and Reward Optimization for Natural Language Inference Adaptation</span></h1>
+        <p class="authors">Jason K. Nam <span aria-hidden="true">·</span> <span class="affiliation">DatAI</span></p>
+        <p class="lede">Identical verifier information can produce different learning dynamics. We separate support allocation, objective geometry, and representation change through controlled continuation of a filtered NLI classifier.</p>
+        <p class="study-line">Qwen3-4B <span aria-hidden="true">/</span> XNLI <span aria-hidden="true">/</span> Three student seeds</p>
+        <div class="actions"><a class="button primary" href="paper.pdf">Read paper <span aria-hidden="true">↗</span></a><a class="button" href="https://anonymous.4open.science/r/target-reward-adaptation-EE6A/" target="_blank" rel="noopener noreferrer">Anonymous code <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <figure class="concept">
+        <a href="assets/concept.png" aria-label="Open conceptual figure at full resolution"><img src="assets/concept.png" width="1090" height="1000" alt="Schematic accepted and rejected densities above a three-class probability simplex, contrasting cross-entropy and reward update directions."></a>
+        <figcaption>Schematic support densities and analytic objective geometry; illustrative distributions, not empirical embeddings.</figcaption>
+      </figure>
+    </section>
+
+    <section class="findings" aria-label="Three central findings">
+      <article><p class="finding-label">Objective choice</p><p class="metric">+5.69<span>± 0.69</span></p><p>Head-F1 points: Exact minus soft CE, with the same fixed feedback and update budget.</p></article>
+      <article><p class="finding-label">Support allocation</p><p class="metric rust">−3.06<span>± 0.78</span></p><p>Head-F1 points after replacing 40% of accepted inputs at fixed unique-example and exposure budgets.</p></article>
+      <article><p class="finding-label">Decision versus representation</p><p class="metric paired">+24.86 <span>/</span> +1.29</p><p>Head / target-probe F1 gains for Exact over Dual-600. The readout determines the observed effect.</p></article>
+    </section>
+
+    <section id="formulation" class="formulation ruled">
+      <div><p class="eyebrow">Shared information, distinct gradients</p><h2>One cache. Different objectives.</h2><p>A frozen instruction model averages six class-aligned views. Its distribution <i>q</i> and agreement weight <i>w</i> define the reward. RLOO estimates the exact-reward gradient with eight sampled actions; CE instead fits the verifier distribution.</p></div>
+      <div class="equations" aria-label="Reward and action objectives">
+        <div><span class="eq-label">Reward</span><span class="math">r(x, y) = w(x)[q<sub>y</sub>(x) − ⅓]</span></div>
+        <div><span class="eq-label">Soft CE</span><span class="math">ℓ<sub>CE</sub> = −w ∑<sub>y</sub> q<sub>y</sub> log π<sub>y</sub></span></div>
+        <div><span class="eq-label teal">Exact reward</span><span class="math">ℓ<sub>ER</sub> = −∑<sub>y</sub> π<sub>y</sub> r(x, y)</span></div>
+        <p>Both retain reference-policy KL and dropout-JS regularization.</p>
+      </div>
+    </section>
+
+    <section id="evidence" class="evidence" aria-labelledby="evidence-title">
+      <div class="section-heading"><h2 id="evidence-title">Evidence across endpoints</h2><p>Paired seeds · Fixed checkpoints · Matched probe supports</p></div>
+      <article class="result">
+        <div class="result-copy"><span class="index">01</span><h3>Decision quality and gradient activity</h3><p>CE achieves lower NLL: 0.542 versus Exact’s 1.171. Exact has better Brier score. Rejected inputs account for 55.66% of Exact’s action-logit norm sums, despite 40% of exposures.</p></div>
+        <figure><a href="assets/objective.png" aria-label="Open objective and gradient results at full resolution"><img src="assets/objective.png" width="2268" height="1098" loading="lazy" alt="Four panels comparing F1 and NLL, accepted and rejected action-gradient norms, relative norm shares, and zero-spread sampled rewards."></a><figcaption>Norms precede the parameter Jacobian and exclude reference and consistency gradients.</figcaption></figure>
+      </article>
+      <article class="result">
+        <div class="result-copy"><span class="index">02</span><h3>Replacement and rejected-input response</h3><p>The mixed pool retains 2,880 accepted and introduces 1,920 rejected inputs, matching verifier-class totals. Mean cross-task probe change is +0.01 ± 0.39 despite the head-F1 cost.</p></div>
+        <figure><a href="assets/support.png" aria-label="Open support and stratum results at full resolution"><img src="assets/support.png" width="2268" height="756" loading="lazy" alt="Fixed accepted and rejected test-stratum F1, relative stratum responses, per-task transfer changes, and stratum NLL."></a><figcaption>Fixed test strata separate relative response from absolute improvement.</figcaption></figure>
+      </article>
+      <article class="result">
+        <div class="result-copy"><span class="index">03</span><h3>Prediction adaptation and frozen readouts</h3><p>Probes use frozen features and support-fitted logistic regression. Against CE, Exact gains 1.03 target-probe and 0.41 cross-task points; task-specific rankings differ.</p></div>
+        <figure><a href="assets/dynamics.png" aria-label="Open paired endpoint and optimization results at full resolution"><img src="assets/dynamics.png" width="2268" height="756" loading="lazy" alt="Paired head, target-probe and cross-task contrasts alongside entropy, reference KL and verifier reward trajectories."></a><figcaption>Transfer covers MASSIVE, AG News, and PAWS-X. All continuation transfer means remain below initialization.</figcaption></figure>
+      </article>
+    </section>
+
+    <section id="protocol" class="protocol ruled">
+      <div><p class="eyebrow">Controlled continuation</p><h2>Eight conditions, one protocol.</h2><p>Each seed-matched Dual-600 parent receives 500 additional updates and 8,000 exposures. Target gold labels never enter reward construction or encoder adaptation. Reported deviations are sample SDs over three student seeds.</p></div>
+      <dl class="protocol-list"><div><dt>Support</dt><dd>Accept-only · Mixed-4,800 · All-target</dd></div><div><dt>Objectives</dt><dd>Soft CE · Gradient-matched CE · RLOO · Exact</dd></div><div><dt>Reference controls</dt><dd>Gated · Uniform · Class-stratified random KL</dd></div><div><dt>Reproduction</dt><dd>24 continuation runs; fixed verifier, gate, and probe supports.</dd></div></dl>
+    </section>
+  </main>
+  <footer class="wrap"><span>Research materials · Anonymous review version</span><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>
