@@ -22,12 +22,12 @@
         <h1 id="title">Beyond Acceptance:<span>Disentangling Data Support and Reward Optimization for Natural Language Inference Adaptation</span></h1>
         <p class="authors">Jason K. Nam <span aria-hidden="true">·</span> <span class="affiliation">DatAI</span></p>
         <p class="lede">Identical verifier information can produce different learning dynamics. We separate support allocation, objective geometry, and representation change through controlled continuation of a filtered NLI classifier.</p>
-        <p class="study-line">Qwen3-4B <span aria-hidden="true">/</span> XNLI <span aria-hidden="true">/</span> Three student seeds</p>
+        <p class="study-line">Data support <span aria-hidden="true">·</span> Reward objectives <span aria-hidden="true">·</span> Representation transfer</p>
         <div class="actions"><a class="button primary" href="paper.pdf">Read paper <span aria-hidden="true">↗</span></a><a class="button" href="https://anonymous.4open.science/r/target-reward-adaptation-EE6A/" target="_blank" rel="noopener noreferrer">Anonymous code <span aria-hidden="true">↗</span></a></div>
       </div>
       <figure class="concept">
         <a href="assets/concept.png" aria-label="Open conceptual figure at full resolution"><img src="assets/concept.png" width="1090" height="1000" alt="Schematic accepted and rejected densities above a three-class probability simplex, contrasting cross-entropy and reward update directions."></a>
-        <figcaption>Schematic support densities and analytic objective geometry; illustrative distributions, not empirical embeddings.</figcaption>
+        <figcaption>Schematic support densities and analytic objective geometry.</figcaption>
       </figure>
     </section>
 
@@ -65,7 +65,7 @@
 
     <section id="protocol" class="protocol ruled">
       <div><p class="eyebrow">Controlled continuation</p><h2>Support, Objectives, and Regularization</h2><p>Each seed-matched Dual-600 parent receives 500 additional updates and 8,000 exposures. Target gold labels never enter reward construction or encoder adaptation. Reported deviations are sample SDs over three student seeds.</p></div>
-      <dl class="protocol-list"><div><dt>Support</dt><dd>Accept-only · Mixed-4,800 · All-target</dd></div><div><dt>Objectives</dt><dd>Soft CE · Gradient-matched CE · RLOO · Exact</dd></div><div><dt>Reference controls</dt><dd>Gated · Uniform · Class-stratified random KL</dd></div><div><dt>Reproduction</dt><dd>24 continuation runs; fixed verifier, gate, and probe supports.</dd></div></dl>
+      <dl class="protocol-list"><div><dt>Model and verifier</dt><dd>Qwen3-4B-Instruct-2507 on English XNLI. The student uses a frozen 4-bit backbone and rank-16 adapters; the verifier uses frozen original instruction weights from the same pretraining lineage.</dd></div><div><dt>Support</dt><dd>Accept-only · Mixed-4,800 · All-target</dd></div><div><dt>Objectives</dt><dd>Soft CE · Gradient-matched CE · RLOO · Exact</dd></div><div><dt>Reference controls</dt><dd>Gated · Uniform · Class-stratified random KL</dd></div><div><dt>Reproduction</dt><dd>24 continuation runs; fixed verifier, gate, and probe supports.</dd></div></dl>
     </section>
   </main>
   <footer class="wrap"><span>Research materials · Working manuscript</span><a href="#main">Back to top ↑</a></footer>
