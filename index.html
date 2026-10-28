@@ -38,7 +38,7 @@
     </section>
 
     <section id="formulation" class="formulation ruled">
-      <div><p class="eyebrow">Shared information, distinct gradients</p><h2>One cache. Different objectives.</h2><p>A frozen instruction model averages six class-aligned views. Its distribution <i>q</i> and agreement weight <i>w</i> define the reward. RLOO estimates the exact-reward gradient with eight sampled actions; CE instead fits the verifier distribution.</p></div>
+      <div><p class="eyebrow">Shared information, distinct gradients</p><h2>Fixed feedback and objective geometry</h2><p>A frozen instruction model averages six class-aligned views. Its distribution <i>q</i> and agreement weight <i>w</i> define the reward. RLOO estimates the exact-reward gradient with eight sampled actions; CE instead fits the verifier distribution.</p></div>
       <div class="equations" aria-label="Reward and action objectives">
         <div><span class="eq-label">Reward</span><span class="math">r(x, y) = w(x)[q<sub>y</sub>(x) − ⅓]</span></div>
         <div><span class="eq-label">Soft CE</span><span class="math">ℓ<sub>CE</sub> = −w ∑<sub>y</sub> q<sub>y</sub> log π<sub>y</sub></span></div>
@@ -64,7 +64,7 @@
     </section>
 
     <section id="protocol" class="protocol ruled">
-      <div><p class="eyebrow">Controlled continuation</p><h2>Eight conditions, one protocol.</h2><p>Each seed-matched Dual-600 parent receives 500 additional updates and 8,000 exposures. Target gold labels never enter reward construction or encoder adaptation. Reported deviations are sample SDs over three student seeds.</p></div>
+      <div><p class="eyebrow">Controlled continuation</p><h2>Support, Objectives, and Regularization</h2><p>Each seed-matched Dual-600 parent receives 500 additional updates and 8,000 exposures. Target gold labels never enter reward construction or encoder adaptation. Reported deviations are sample SDs over three student seeds.</p></div>
       <dl class="protocol-list"><div><dt>Support</dt><dd>Accept-only · Mixed-4,800 · All-target</dd></div><div><dt>Objectives</dt><dd>Soft CE · Gradient-matched CE · RLOO · Exact</dd></div><div><dt>Reference controls</dt><dd>Gated · Uniform · Class-stratified random KL</dd></div><div><dt>Reproduction</dt><dd>24 continuation runs; fixed verifier, gate, and probe supports.</dd></div></dl>
     </section>
   </main>
