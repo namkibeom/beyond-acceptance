@@ -51,7 +51,7 @@
       <div class="section-heading"><h2 id="evidence-title">Evidence across endpoints</h2><p>Paired seeds · Fixed checkpoints · Matched probe supports</p></div>
       <article class="result">
         <div class="result-copy"><span class="index">01</span><h3>Decision quality and gradient activity</h3><p>CE achieves lower NLL: 0.542 versus Exact’s 1.171. Exact has better Brier score. Rejected inputs account for 55.66% of Exact’s action-logit norm sums, despite 40% of exposures.</p></div>
-        <figure><a href="assets/objective.png" aria-label="Open objective and gradient results at full resolution"><img src="assets/objective.png" width="2268" height="1098" loading="lazy" alt="Four panels comparing F1 and NLL, accepted and rejected action-gradient norms, relative norm shares, and zero-spread sampled rewards."></a><figcaption>Norms precede the parameter Jacobian and exclude reference and consistency gradients.</figcaption></figure>
+        <figure><a href="assets/objective.png" aria-label="Open objective and gradient results at full resolution"><img src="assets/objective.png" width="2268" height="1098" loading="lazy" alt="Four panels comparing F1 and NLL, accepted and rejected action-gradient norms, relative norm shares, and zero-spread sampled rewards."></a><figcaption>Objective-term gradient norms with respect to class logits.</figcaption></figure>
       </article>
       <article class="result">
         <div class="result-copy"><span class="index">02</span><h3>Replacement and rejected-input response</h3><p>The mixed pool retains 2,880 accepted and introduces 1,920 rejected inputs, matching verifier-class totals. Mean cross-task probe change is +0.01 ± 0.39 despite the head-F1 cost.</p></div>
